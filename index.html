@@ -67,10 +67,32 @@
                     Neural Assets: 3D-Aware Multi-Object <br />
                     Scene Synthesis with Image Diffusion Models
                 </h2>
-                <h4><i>NeurIPS 2024 Submission</i></h4>
+                <h4><i>arXiv 2024</i></h4>
                 <p>
-                    Anonymous Author(s)
+                    <a href="https://wuziyi616.github.io/">Ziyi Wu</a><sup>2,3,*</sup>,&nbsp;
+                    <a href="https://yuliarubanova.github.io/">Yulia Rubanova</a><sup>1</sup>,&nbsp;
+                    <a href="https://scholar.google.com/citations?user=NVD-BU4AAAAJ&hl=en">Rishabh Kabra</a><sup>1</sup>,&nbsp;
+                    <a href="https://cs.stanford.edu/people/dorarad/">Drew A. Hudson</a><sup>1,2</sup>,&nbsp;
+                    <br/>
+                    <a href="https://tisl.cs.utoronto.ca/author/igor-gilitschenski/">Igor Gilitschenski</a><sup>2,3</sup>,&nbsp;
+                    <a href="https://scholar.google.co.uk/citations?user=0ncQNL8AAAAJ&hl=en">Yusuf Aytar</a><sup>1</sup>,&nbsp;
+                    <a href="https://www.sjoerdvansteenkiste.com/">Sjoerd van Steenkiste</a><sup>1</sup>,&nbsp;
+                    <a href="https://k-r-allen.github.io/">Kelsey Allen</a><sup>1</sup>,&nbsp;
+                    <a href="https://tkipf.github.io/">Thomas Kipf</a><sup>1</sup>
+                    <br/>
+                    <sup>1</sup>Google DeepMind&nbsp;&nbsp;
+                    <sup>2</sup>University of Toronto&nbsp;&nbsp;
+                    <sup>3</sup>Vector Institute&nbsp;&nbsp;
+                    <sup>4</sup>University College London&nbsp;&nbsp;
+                    <br/>
+                    <sup>*</sup> Work done while interning at Google
                 </p>
+                <!-- <h5>
+                    <a href="https://arxiv.org/abs/2305.11281">[Paper]</a>&nbsp;
+                    <a href="https://openreview.net/forum?id=ETk6cfS3vk">[Review]</a>&nbsp;
+                    <a href="https://github.com/Wuziyi616/SlotDiffusion">[Code]</a>&nbsp;
+                    <a href="https://twitter.com/Dazitu_616/status/1706386086077862296">[Twitter Thread]</a>
+                </h5> -->
             </div>
         </div>
 
@@ -119,12 +141,17 @@
                 <!-- <strong>Neural Assets framework</strong>. -->
                 <strong>(a)</strong> A Neural Asset is an object-centric representation
                 that consists of an appearance token and a pose token.
+                <br />
                 <strong>(b)</strong> To learn disentangled features, we encode appearance
-                from a source image and pose from a target image, and train the model to
-                reconstruct the target image.
-                <strong>(c)</strong> At testing time, we support 3D-aware editing such as
-                rotation (<b style="color: #17BECF">blue</b>), and compositional generation
-                by transferring objects across scenes (<b style="color: #E377C2">pink</b>).
+                from a <b>source</b> image and object pose (3D bounding box) from a
+                <b>target</b> image, and train the model to reconstruct the <b>target</b>
+                image. Therefore, the appearance token is forced to be pose-invariant, i.e.,
+                it needs to infer the canonical 3D shape of objects.
+                <br />
+                <strong>(c)</strong> At testing time, we support versatile 3D-aware object
+                control such as rotation (<b style="color: #17BECF">blue</b>), and
+                compositional generation by transferring Neural Assets across scenes
+                (<b style="color: #E377C2">pink</b>).
             </p>
         </div>
 
@@ -225,9 +252,9 @@
             </div>
             <hr />
             <p>
-                Since Objectron videos only have camera movement (i.e., the objects
+                <b>Since Objectron videos only have camera movement (i.e., the objects
                 remain static), the pose of foreground objects is sometimes entangled
-                with global camera pose, as can be seen in the translation results.
+                with global camera pose, as can be seen in the translation results.</b>
                 Nevertheless, in the rotation results, our model is still able to
                 synthesize disentangled object movement.
             </p>
@@ -303,6 +330,41 @@
             <br />
         </div>
 
+        <!--------------------- Compositional Generation --------------------->
+        <div class="container">
+            <div align="center"><h3>Compositional Generation</h3></div>
+            <hr />
+            <p>
+                A Neural Asset fully describes the appearance and position of
+                an object. We can leverage it for compositional generation, e.g.,
+                remove, segment out, replace, and transfer objects across scenes.
+            </p>
+            <hr />
+        </div>
+        <div class="container_img">
+            <p align="center">
+                <img src="assets/waymo_compose_results.png" style="height: 360px"/>
+            </p>
+        </div>
+        <div class="container">
+            <div align="center"><h4>Background Replacement</h4></div>
+            <hr />
+            <p>
+                Since we model scene backgrounds separately, it enables independent control
+                of the global environment. Our generator adapts objects to the new background,
+                e.g., the car lights are turned on in foggy weather or at night. Also,
+                shadows of objects and specular highlight on cars are correctly rendered.
+            </p>
+            <hr />
+        </div>
+        <div class="container_img">
+            <p align="center">
+                <img src="assets/waymo_replace_bg_results.png" style="height: 640px"/>
+            </p>
+            <br />
+            <br />
+        </div>
+
         <!--------------------- Failure Case --------------------->
         <div class="container">
             <div align="center">
@@ -344,6 +406,9 @@
                 <br />
                 [2] Ahmadyan, Adel, et al. "Objectron: A large scale dataset of
                 object-centric videos in the wild with pose annotations." CVPR. 2021.
+                <br />
+                [3] Rombach, Robin, et al. "High-resolution image synthesis with latent
+                diffusion models." CVPR. 2022.
             </p>
         </div>
 
